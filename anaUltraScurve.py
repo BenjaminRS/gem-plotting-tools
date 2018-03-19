@@ -245,8 +245,11 @@ listOfBranches = inF.scurveTree.GetListOfBranches()
 for event in inF.scurveTree:
     strip = chanToStripLUT[event.vfatN][event.vfatCH]
     pan_pin = chanToPanPinLUT[event.vfatN][event.vfatCH]
+    stripNext = strip+1
+    vcalNext = event.vcal+1
     if not (options.channels or options.PanPin):
-        vSummaryPlots[event.vfatN].Fill(strip,calDAC2Q_Slope[event.vfatN]*event.vcal+calDAC2Q_Intercept[event.vfatN],event.Nhits)
+#        vSummaryPlots[event.vfatN].Fill(strip,calDAC2Q_Slope[event.vfatN]*event.vcal+calDAC2Q_Intercept[event.vfatN],event.Nhits)
+        vSummaryPlots[event.vfatN].SetBinContent(stripNext,vcalNext,event.Nhits)
         pass
     if options.channels:
         vSummaryPlots[event.vfatN].Fill(event.vfatCH,calDAC2Q_Slope[event.vfatN]*event.vcal+calDAC2Q_Intercept[event.vfatN],event.Nhits)
